@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+
+    <com.lcsd.luxi.view.MultipleStatusView
+        android:id="@+id/statu_frag03"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:orientation="vertical">
+
+            <com.dl7.player.media.IjkPlayerView
+                android:id="@+id/ijk_zb_player"
+                android:layout_width="match_parent"
+                android:layout_height="220dp" />
+
+            <in.srain.cube.views.ptr.PtrClassicFrameLayout
+                android:id="@+id/refresh_frag03"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="13dp">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="15dp"
+                            android:background="@color/orange" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textColor="@color/light_black"
+                            android:gravity="center_vertical"
+                            android:text="点播节目" />
+                    </LinearLayout>
+
+                    <GridView
+                        android:id="@+id/gv_dianbo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:numColumns="3" />
+                </LinearLayout>
+            </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+        </LinearLayout>
+    </com.lcsd.luxi.view.MultipleStatusView>
+</LinearLayout>

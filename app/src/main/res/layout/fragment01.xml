@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/f1_topbar" />
+
+    <com.lcsd.luxi.view.MultipleStatusView
+        android:id="@+id/statu_frag01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lcsd.luxi.view.BetterPtrFrameLayout
+            android:id="@+id/refresh_frag01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.lcsd.luxi.view.CustomVRecyclerView
+                android:id="@+id/recycler_frag01_lanmu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+        </com.lcsd.luxi.view.BetterPtrFrameLayout>
+    </com.lcsd.luxi.view.MultipleStatusView>
+</LinearLayout>

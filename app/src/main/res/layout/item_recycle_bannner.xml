@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.lcsd.luxi.refresh.RollPagerView
+        android:id="@+id/frag01_banner_news"
+        app:rollviewpager_play_delay="5000"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:rollviewpager_hint_gravity="right"/>
+</LinearLayout>

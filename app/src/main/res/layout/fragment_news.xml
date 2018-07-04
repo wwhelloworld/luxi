@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
+    <com.lcsd.luxi.view.MultipleStatusView
+        android:id="@+id/statu_news_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lcsd.luxi.view.BetterPtrFrameLayout
+            android:id="@+id/refresh_news"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scrollview_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.lcsd.luxi.refresh.RollPagerView
+                        android:id="@+id/banner_news"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:rollviewpager_hint_gravity="right"
+                        app:rollviewpager_play_delay="5000" />
+
+                    <com.lcsd.luxi.view.ScrollViewWithListView
+                        android:id="@+id/lv_news"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="0.5dp"
+                        />
+                </LinearLayout>
+            </ScrollView>
+        </com.lcsd.luxi.view.BetterPtrFrameLayout>
+    </com.lcsd.luxi.view.MultipleStatusView>
+</LinearLayout>

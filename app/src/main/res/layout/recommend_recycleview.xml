@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:src="@drawable/img_luxi_tj1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:src="@drawable/img_luxi_tj2" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:src="@drawable/img_luxi_tj2" />
+        </LinearLayout>
+
+
+
+        <ListView
+            android:id="@+id/listview_f1_recommend"
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:layout_height="50dp"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:dividerHeight="2dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/img_luxi_tj3"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/light_gray1" />
+
+</LinearLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.lcsd.luxi">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".http.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MainAppTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name=".ui.activity.WelcomeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.ImagePageActivity"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.XWZXActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NewsDetialActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WebviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ZWActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HotNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ZTZLActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 安卓7.0及以上使用FileProvider生成content:// Uri来替代file:// Uri。 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.lcsd.luxi.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".ui.activity.VideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.DianBoListActivity"
+            android:screenOrientation="portrait" />
+        <!-- 外部服务 -->
+        <activity
+            android:name=".ui_third_party.activity.NewsTopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui_third_party.activity.WXJXActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui_third_party.activity.LsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui_third_party.activity.LsContnetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui_third_party.activity.WepiaoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui_third_party.activity.JokesActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50.5dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_xian" />
+
+        <LinearLayout
+            android:id="@+id/ll_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color_white"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/ll_01"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="3dp">
+
+                <ImageView
+                    android:id="@+id/iv_01"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/img_bottom_firstpages"/>
+
+
+
+                <TextView
+                    android:id="@+id/tv_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="首页"
+                    android:textColor="@color/orange"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_02"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="3dp">
+
+                <ImageView
+                    android:id="@+id/iv_02"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/img_bottom_xinwen"/>
+
+
+
+                <TextView
+                    android:id="@+id/tv_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新闻"
+                    android:textColor="@color/light_black1"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_03"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="3dp">
+
+                <ImageView
+                    android:id="@+id/iv_03"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/img_bottom_zhibo"/>
+
+
+
+                <TextView
+                    android:id="@+id/tv_03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="直播"
+                    android:textColor="@color/light_black1"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_04"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="3dp">
+
+                <ImageView
+                    android:id="@+id/iv_04"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/img_bottom_fuwu"/>
+
+
+
+                <TextView
+                    android:id="@+id/tv_04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务"
+                    android:textColor="@color/light_black1"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
