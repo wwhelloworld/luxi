@@ -62,11 +62,11 @@ public class DSLM_adapter extends RecyclerView.Adapter<DSLM_adapter.ViewHolder> 
             }
         });
         //让最后一个位置设置一下
-        if (position == list.size() - 1) {
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1); // , 1是可选写的
-            lp.setMargins(CommonUtils.dip2px(4), CommonUtils.dip2px(5), CommonUtils.dip2px(8), CommonUtils.dip2px(15));
-            holder.imageView.setLayoutParams(lp);
-        }
+//        if (position == list.size() - 1) {
+//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1); // , 1是可选写的
+//            lp.setMargins(CommonUtils.dip2px(4), CommonUtils.dip2px(5), CommonUtils.dip2px(8), CommonUtils.dip2px(15));
+//            holder.imageView.setLayoutParams(lp);
+//        }
     }
 
 

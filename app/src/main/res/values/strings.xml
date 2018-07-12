@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">掌上泸溪</string>
+    <string name="app_name">智慧泸溪</string>
 
     <string name="empty_view_hint">暂无数据</string>
     <string name="error_view_hint">加载失败 点击重试</string>
