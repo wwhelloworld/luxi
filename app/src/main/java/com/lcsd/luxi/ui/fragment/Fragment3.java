@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.dl7.player.media.IjkPlayerView;
@@ -66,11 +67,11 @@ public class Fragment3 extends BaseFragment {
         zb_player = getActivity().findViewById(R.id.ijk_zb_player);
         zb_player.hideSet();
         zb_player.init(true, true);
-
-        //点播请求
-        requestDianBo(0);
         //直播广播
         requestZBGB(0);
+        //点播请求
+        requestDianBo(0);
+
         //填充适配器
         zblist = new ArrayList<>();
         dblist = new ArrayList<>();
@@ -85,8 +86,8 @@ public class Fragment3 extends BaseFragment {
         refresh.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                requestDianBo(1);
                 requestZBGB(1);
+                requestDianBo(1);
             }
         });
 
@@ -98,22 +99,27 @@ public class Fragment3 extends BaseFragment {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestDianBo(0);
                 requestZBGB(0);
+                requestDianBo(0);
             }
         });
         gridView_zb.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (zblist.get(position).getZblinker().equals("m3u8")) {
-                    zb_player.switchVideoPath(zblist.get(position).getZblinker());
-                    zb_player.setTitle(zblist.get(0).getTitle());
-                    GlideUtils.load(zblist.get(0).getThumb(), zb_player.mPlayerThumb);
-                } else {
-                    startActivity(new Intent(mContext, XCZBActivity.class)
-                            .putExtra("url", zblist.get(position).getZblinker())
-                            .putExtra("title", zblist.get(position).getTitle()));
+                if (zblist.get(position).getZblinker() != null && !zblist.get(position).getZblinker().equals("")) {
+                    if (zblist.get(position).getZblinker().contains("m3u8")) {
+                        zb_player.switchVideoPath(zblist.get(position).getZblinker());
+                        zb_player.setTitle(zblist.get(0).getTitle());
+                        GlideUtils.load(zblist.get(0).getThumb(), zb_player.mPlayerThumb);
+                        zb_player.start();
+                    } else {
+                        startActivity(new Intent(mContext, XCZBActivity.class)
+                                .putExtra("url", zblist.get(position).getZblinker())
+                                .putExtra("title", zblist.get(position).getTitle()));
 
+                    }
+                } else {
+                    Toast.makeText(mContext,"后台维护中，请稍后重试！",Toast.LENGTH_SHORT).show();
                 }
 
             }

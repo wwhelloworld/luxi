@@ -291,7 +291,7 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         mAspectRatioOptions = (RadioGroup) findViewById(R.id.aspect_ratio_group);
         mAspectOptionsHeight = getResources().getDimensionPixelSize(R.dimen.aspect_btn_size) * 4;
         //直接设置全屏显示
-        mVideoView.setAspectRatio(IRenderView.AR_ASPECT_FILL_PARENT);
+//        mVideoView.setAspectRatio(IRenderView.AR_ASPECT_WRAP_CONTENT);
 
        /* mAspectRatioOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

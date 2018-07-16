@@ -22,7 +22,7 @@ import butterknife.Unbinder;
  * Created by jie on 2018/5/11.
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    protected Activity mActivity;
+    protected Context mContext;
 
     private InputMethodManager imm;
     protected ImmersionBar mImmersionBar;
@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
-        mActivity=this;
+        mContext=this;
         //绑定控件
         unbinder = ButterKnife.bind(this);
         //初始化沉浸式

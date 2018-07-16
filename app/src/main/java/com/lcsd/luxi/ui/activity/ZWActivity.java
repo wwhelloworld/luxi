@@ -118,10 +118,16 @@ public class ZWActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mContext.startActivity(new Intent(mContext, VideoPlayerActivity.class)
-                        .putExtra("url", list.get(position).getVideo())
-                        .putExtra("title", list.get(position).getTitle())
-                        .putExtra("img", list.get(position).getThumb()));
+                if (list.get(position).getVideo() != null && !list.get(position).getVideo().equals("")) {
+                    mContext.startActivity(new Intent(mContext, VideoPlayerActivity.class)
+                            .putExtra("url", list.get(position).getVideo())
+                            .putExtra("title", list.get(position).getTitle())
+                            .putExtra("img", list.get(position).getThumb()));
+                } else {
+                    mContext.startActivity(new Intent(mContext, NewsDetialActivity.class)
+                            .putExtra("url", list.get(position).getUrl())
+                            .putExtra("title", list.get(position).getTitle()));
+                }
             }
         });
     }

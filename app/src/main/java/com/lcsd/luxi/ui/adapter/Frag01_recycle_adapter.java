@@ -1,8 +1,5 @@
 package com.lcsd.luxi.ui.adapter;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -24,17 +21,12 @@ import com.lcsd.luxi.entity.Frag01_list;
 import com.lcsd.luxi.entity.Frag01_news;
 import com.lcsd.luxi.refresh.OnItemClickListener;
 import com.lcsd.luxi.refresh.RollPagerView;
-import com.lcsd.luxi.ui.activity.AboutUsActivity;
 import com.lcsd.luxi.ui.activity.DianBoListActivity;
-import com.lcsd.luxi.ui.activity.HotNoticeActivity;
 import com.lcsd.luxi.ui.activity.MainActivity;
 import com.lcsd.luxi.ui.activity.NewsDetialActivity;
 import com.lcsd.luxi.ui.activity.VideoPlayerActivity;
-import com.lcsd.luxi.ui.activity.XWZXActivity;
-import com.lcsd.luxi.ui.activity.ZTZLActivity;
+import com.lcsd.luxi.ui.activity.WebviewActivity;
 import com.lcsd.luxi.ui.activity.ZWActivity;
-import com.lcsd.luxi.ui.fragment.Fragment2;
-import com.lcsd.luxi.ui.fragment.Fragment3;
 import com.lcsd.luxi.utils.DateUtils;
 import com.lcsd.luxi.utils.GlideUtils;
 import com.lcsd.luxi.view.CustomVRecyclerView;
@@ -204,34 +196,40 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
             lanmu_adapter.setOnItemClickListener(new Lanmu_adapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    if (lanmulist.get(position).getMark().equals("czlx")) {//分类类型
-                        mContext.startActivity(new Intent(mContext, ZWActivity.class)
+                    if (lanmulist.get(position).getMark() != null && !lanmulist.get(position).getMark().equals("")) {
+                        if (lanmulist.get(position).getMark().equals("czlx")) {//分类类型
+                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
+                                    .putExtra("url", lanmulist.get(position).getMarklinker())
+                                    .putExtra("mark", lanmulist.get(position).getMark())
+                                    .putExtra("title", lanmulist.get(position).getTitle()));
+                        } else if (lanmulist.get(position).getMark().equals("zwxx")) {//列表类型
+                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
+                                    .putExtra("url", lanmulist.get(position).getMarklinker())
+                                    .putExtra("mark", lanmulist.get(position).getMark())
+                                    .putExtra("title", lanmulist.get(position).getTitle()));
+
+                        } else if (lanmulist.get(position).getMark().equals("beutContry")) {//列表类型
+                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
+                                    .putExtra("url", lanmulist.get(position).getMarklinker())
+                                    .putExtra("mark", lanmulist.get(position).getMark())
+                                    .putExtra("title", lanmulist.get(position).getTitle()));
+
+
+                        } else if (lanmulist.get(position).getMark().equals("ztzl")) {//分类类型
+                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
+                                    .putExtra("url", lanmulist.get(position).getMarklinker())
+                                    .putExtra("mark", lanmulist.get(position).getMark())
+                                    .putExtra("title", lanmulist.get(position).getTitle()));
+
+                        } else if (lanmulist.get(position).getMark().equals("videolist")) {//分类类型
+
+                            MainActivity.mLl3.performClick();//模拟人工触摸点击方式
+                        }
+
+                    } else {
+                        mContext.startActivity(new Intent(mContext, WebviewActivity.class)
                                 .putExtra("url", lanmulist.get(position).getMarklinker())
-                                .putExtra("mark", lanmulist.get(position).getMark())
                                 .putExtra("title", lanmulist.get(position).getTitle()));
-                    } else if (lanmulist.get(position).getMark().equals("zwxx")) {//列表类型
-                        mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                .putExtra("url", lanmulist.get(position).getMarklinker())
-                                .putExtra("mark", lanmulist.get(position).getMark())
-                                .putExtra("title", lanmulist.get(position).getTitle()));
-
-                    } else if (lanmulist.get(position).getMark().equals("beutContry")) {//列表类型
-                        mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                .putExtra("url", lanmulist.get(position).getMarklinker())
-                                .putExtra("mark", lanmulist.get(position).getMark())
-                                .putExtra("title", lanmulist.get(position).getTitle()));
-
-
-                    } else if (lanmulist.get(position).getMark().equals("ztzl")) {//分类类型
-                        mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                .putExtra("url", lanmulist.get(position).getMarklinker())
-                                .putExtra("mark", lanmulist.get(position).getMark())
-                                .putExtra("title", lanmulist.get(position).getTitle()));
-
-                    } else if (lanmulist.get(position).getMark().equals("videolist")) {//分类类型
-
-                        MainActivity.mLl3.performClick();//模拟人工触摸点击方式
-
 
                     }
                 }

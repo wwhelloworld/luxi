@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.dl7.player.media.IjkPlayerView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.lcsd.luxi.R;
+import com.lcsd.luxi.ui.fragment.Fragment3;
 import com.lcsd.luxi.utils.GlideUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -58,12 +60,22 @@ public class VideoPlayerActivity extends BaseActivity {
             tv_title.setText(title);
         }
         if (url != null) {
-            playerView.setVideoPath(url);
-            playerView.setTitle(title);
-            playerView.hideSet();
-            playerView.hideSelect();
-            GlideUtils.loadspecial(mContext, img, playerView.mPlayerThumb);
-            playerView.init(false, true);
+            if (url.contains("m3u8")) {
+                playerView.setVideoPath(encodeUrl(url));
+                playerView.setTitle(title);
+                playerView.hideSet();
+                playerView.hideSelect();
+                GlideUtils.loadspecial(mContext, img, playerView.mPlayerThumb);
+                playerView.init(true, true);
+            } else {
+                playerView.setVideoPath(encodeUrl(url));
+                playerView.setTitle(title);
+                playerView.hideSet();
+                playerView.hideSelect();
+                GlideUtils.loadspecial(mContext, img, playerView.mPlayerThumb);
+                playerView.init(false, true);
+            }
+
         }
     }
 
@@ -95,6 +107,24 @@ public class VideoPlayerActivity extends BaseActivity {
             findViewById(R.id.ll_video_title).setVisibility(View.VISIBLE);
             findViewById(R.id.video_top_view).setVisibility(View.VISIBLE);
         }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (playerView != null && playerView.isFullscreen()) {
+            //防止音量键导致返回竖屏
+            if (playerView.handleVolumeKey(keyCode)) {
+                return true;
+            } else {
+                playerView.onBackPressed();
+            }
+            return false;
+        } else {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+
     }
 
     @Override

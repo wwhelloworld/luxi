@@ -83,7 +83,9 @@ public class Fragment_newstop extends BaseV4Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(getContext(), WebviewActivity.class).putExtra("url", list.get(i).getUrl()).putExtra("title", title));
+                startActivity(new Intent(getContext(), WebviewActivity.class)
+                        .putExtra("url", list.get(i).getUrl())
+                        .putExtra("title", title));
             }
         });
         request_data(false);

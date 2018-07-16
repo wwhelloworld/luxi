@@ -20,11 +20,11 @@ import java.util.List;
 /**
  * Created by wei on 2017/7/25.
  */
-public class xczb_adapter extends BaseAdapter {
+public class XCZB_adapter extends BaseAdapter {
     private Context context;
     private List<XCZB_Info.TContent.TRslist> list;
 
-    public xczb_adapter(Context context, List<XCZB_Info.TContent.TRslist> list) {
+    public XCZB_adapter(Context context, List<XCZB_Info.TContent.TRslist> list) {
         this.context = context;
         this.list = list;
     }
@@ -46,9 +46,9 @@ public class xczb_adapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        VZBholder holder = null;
+        XCZBholder holder = null;
         if (view == null) {
-            holder = new VZBholder();
+            holder = new XCZBholder();
             view = LayoutInflater.from(context).inflate(R.layout.item_listview_xczb, null);
             holder.imageView = view.findViewById(R.id.iv_item_listview_xczb);
             holder.textView =  view.findViewById(R.id.tv_item_listview_xczb1);
@@ -56,7 +56,7 @@ public class xczb_adapter extends BaseAdapter {
 
             view.setTag(holder);
         } else {
-            holder = (VZBholder) view.getTag();
+            holder = (XCZBholder) view.getTag();
         }
         if (list != null && list.size() > 0) {
             holder.textView.setText(list.get(i).getTitle());
@@ -75,7 +75,7 @@ public class xczb_adapter extends BaseAdapter {
         return view;
     }
 
-    class VZBholder {
+    class XCZBholder {
         ImageView imageView;
         TextView textView, textView2;
     }
