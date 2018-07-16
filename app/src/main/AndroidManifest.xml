@@ -98,6 +98,7 @@
         <activity
             android:name=".ui_third_party.activity.JokesActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.XCZBActivity"></activity>
     </application>
 
 </manifest>

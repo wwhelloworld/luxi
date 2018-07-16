@@ -1,5 +1,6 @@
 package com.lcsd.luxi.ui.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -21,6 +22,7 @@ import butterknife.Unbinder;
  * Created by jie on 2018/5/11.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    protected Activity mActivity;
 
     private InputMethodManager imm;
     protected ImmersionBar mImmersionBar;
@@ -30,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
+        mActivity=this;
         //绑定控件
         unbinder = ButterKnife.bind(this);
         //初始化沉浸式

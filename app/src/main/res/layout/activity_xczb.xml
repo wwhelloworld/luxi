@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.XCZBActivity">
+
+    <View
+        android:id="@+id/xczb_view_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:id="@+id/ll_xczb_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackground"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/img_back" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_xczb_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/color_black"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray1" />
+    <com.lcsd.luxi.view.MultipleStatusView
+        android:id="@+id/statu_xczb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/refresh_xczb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listview_xczb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="0.5dp"
+                />
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+    </com.lcsd.luxi.view.MultipleStatusView>
+
+</LinearLayout>
