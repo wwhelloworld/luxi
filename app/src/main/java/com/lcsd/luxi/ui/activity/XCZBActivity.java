@@ -130,6 +130,7 @@ public class XCZBActivity extends BaseActivity {
 
                     startActivity(new Intent(mContext, VideoPlayerActivity.class)
                             .putExtra("url", list.get(position).getZbaddress())
+                            .putExtra("img",list.get(position).getThumb())
                             .putExtra("title", list.get(position).getTitle()));
 
                 } else if (list.get(position).getZbstatus().equals("2")) {
@@ -140,10 +141,12 @@ public class XCZBActivity extends BaseActivity {
                     if (list.get(position).getVideo()!=null&&!list.get(position).getVideo().equals("")){
                         startActivity(new Intent(mContext, VideoPlayerActivity.class)
                                 .putExtra("url", list.get(position).getVideo())
+                                .putExtra("img",list.get(position).getThumb())
                                 .putExtra("title", list.get(position).getTitle()));
                     }else {
                         startActivity(new Intent(mContext, VideoPlayerActivity.class)
                                 .putExtra("url", list.get(position).getZbaddress())
+                                .putExtra("img",list.get(position).getThumb())
                                 .putExtra("title", list.get(position).getTitle()));
                     }
 

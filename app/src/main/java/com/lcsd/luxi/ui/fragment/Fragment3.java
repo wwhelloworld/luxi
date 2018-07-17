@@ -72,6 +72,7 @@ public class Fragment3 extends BaseFragment {
         //点播请求
         requestDianBo(0);
 
+
         //填充适配器
         zblist = new ArrayList<>();
         dblist = new ArrayList<>();
@@ -108,10 +109,20 @@ public class Fragment3 extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (zblist.get(position).getZblinker() != null && !zblist.get(position).getZblinker().equals("")) {
                     if (zblist.get(position).getZblinker().contains("m3u8")) {
-                        zb_player.switchVideoPath(zblist.get(position).getZblinker());
-                        zb_player.setTitle(zblist.get(0).getTitle());
-                        GlideUtils.load(zblist.get(0).getThumb(), zb_player.mPlayerThumb);
-                        zb_player.start();
+                        if (zblist.get(position).getZblinker().contains("fm")) {
+                            zb_player.switchVideoPath(true, zblist.get(position).getZblinker());
+                            zb_player.setTitle(zblist.get(position).getTitle());
+                            GlideUtils.loadspecial(mContext, zblist.get(position).getThumb(), zb_player.mPlayerThumb);
+                            zb_player.isFM(true);
+                            zb_player.start();
+                        } else {
+                            zb_player.switchVideoPath(false, zblist.get(position).getZblinker());
+                            zb_player.setTitle(zblist.get(position).getTitle());
+                            GlideUtils.loadspecial(mContext, zblist.get(position).getThumb(), zb_player.mPlayerThumb);
+                            zb_player.isFM(false);
+                            zb_player.start();
+                        }
+
                     } else {
                         startActivity(new Intent(mContext, XCZBActivity.class)
                                 .putExtra("url", zblist.get(position).getZblinker())
@@ -119,18 +130,18 @@ public class Fragment3 extends BaseFragment {
 
                     }
                 } else {
-                    Toast.makeText(mContext,"后台维护中，请稍后重试！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "后台维护中，请稍后重试！", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
         gridView_db.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 mContext.startActivity(new Intent(mContext, DianBoListActivity.class)
                         .putExtra("id", "demand")
-                        .putExtra("mark", dblist.get(position).getIdentifier())
-                        .putExtra("title", dblist.get(position).getTitle()));
+                        .putExtra("mark", dblist.get(i).getIdentifier())
+                        .putExtra("title", dblist.get(i).getTitle()));
             }
         });
     }
@@ -146,6 +157,7 @@ public class Fragment3 extends BaseFragment {
 
         }
     }
+
 
     /**
      * 直播类请求
@@ -171,7 +183,7 @@ public class Fragment3 extends BaseFragment {
                         zb_adapter.notifyDataSetChanged();
                         if (i == 0) {
                             //初始加载直播流
-                            zb_player.setVideoPath("http://124.112.228.134:1935/live/zongyi/playlist.m3u8");
+                            zb_player.setVideoPath(info.getContent().get(0).getZblinker());
                             zb_player.setTitle(info.getContent().get(0).getTitle());
                             GlideUtils.load(info.getContent().get(0).getThumb(), zb_player.mPlayerThumb);
                         }
@@ -280,6 +292,7 @@ public class Fragment3 extends BaseFragment {
             zb_player.onPause();
         }
     }
+
 
     @Override
     public void onDestroy() {

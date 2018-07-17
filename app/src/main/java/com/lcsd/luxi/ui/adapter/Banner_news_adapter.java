@@ -31,7 +31,7 @@ public class Banner_news_adapter extends LoopPagerAdapter {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_banner_view, null);
         ImageView imageView = view.findViewById(R.id.iv_item_lunbo);
         TextView textView = view.findViewById(R.id.tv_item_lunbo);
-        GlideUtils.load(list.get(position).getThumb(), imageView);
+        GlideUtils.loadbig(list.get(position).getThumb(), imageView);
         textView.setText(list.get(position).getTitle());
         return view;
     }

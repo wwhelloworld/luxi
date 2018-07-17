@@ -140,6 +140,7 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
     // 播放键
     private ImageView mIvPlay;
     private ImageView mIvPlayCircle;
+    private ImageView mplay, mpause;
     // 当前时间
     private TextView mTvCurTime;
     // 进度条
@@ -261,6 +262,7 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
             throw new IllegalArgumentException("Context must be AppCompatActivity");
         }
         View.inflate(context, R.layout.layout_player_view, this);
+
         mVideoView = (IjkVideoView) findViewById(R.id.video_view);
         mPlayerThumb = (ImageView) findViewById(R.id.iv_thumb);
         mLoadingView = (ProgressBar) findViewById(R.id.pb_loading);
@@ -283,6 +285,12 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         mIvPlayerLock = (ImageView) findViewById(R.id.iv_player_lock);
         mIvPlayerPhont = (ImageView) findViewById(R.id.iv_player_phont);
         mIvPlayCircle = (ImageView) findViewById(R.id.iv_play_circle);
+        //广播开关
+        mplay = findViewById(R.id.iv_play_play);
+        mpause = findViewById(R.id.iv_play_pause);
+        mplay.setVisibility(GONE);
+        mpause.setVisibility(GONE);
+
         mTvRecoverScreen = (TextView) findViewById(R.id.tv_recover_screen);
         mTvReload = (TextView) findViewById(R.id.tv_reload);
         mFlReload = findViewById(R.id.fl_reload_layout);
@@ -322,6 +330,9 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         mTvRecoverScreen.setOnClickListener(this);
         mTvSettings.setOnClickListener(this);
         mTvReload.setOnClickListener(this);
+        //广播
+        mplay.setOnClickListener(this);
+        mpause.setOnClickListener(this);
     }
 
     /**
@@ -391,6 +402,13 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         mTvSettings.setVisibility(GONE);
     }
 
+    private boolean isfm;
+
+    public boolean isFM(boolean isfm) {
+        this.isfm = isfm;
+        return isfm;
+    }
+
     /**
      * 隐藏选择按钮
      */
@@ -443,6 +461,15 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
             mOrientationListener.enable();
         }
         _pauseDanmaku();
+        if (isfm==true){
+            mpause.setVisibility(GONE);
+            mplay.setVisibility(VISIBLE);
+        }
+        if (mVideoView!=null){
+            mPlayerThumb.setVisibility(VISIBLE);
+            mIvPlayCircle.setVisibility(VISIBLE);
+        }
+
     }
 
     /**
@@ -530,7 +557,15 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
      * @param url
      * @return
      */
-    public IjkPlayerView switchVideoPath(String url) {
+    public IjkPlayerView switchVideoPath( boolean isfm,String url) {
+        if (isfm==false){
+           mpause.setVisibility(GONE);
+           mplay.setVisibility(GONE);
+        }else {
+            mLlBottomBar.setVisibility(GONE);
+            mpause.setVisibility(VISIBLE);
+            mplay.setVisibility(GONE);
+        }
         return switchVideoPath(Uri.parse(url));
     }
 
@@ -779,7 +814,7 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
     };
 
     /**
-     * 隐藏除视频外所有视图
+     * 隐藏除视频外所有视图1
      */
     private void _hideAllView(boolean isTouchLock) {
 //        mPlayerThumb.setVisibility(View.GONE);
@@ -804,17 +839,23 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
     }
 
     /**
-     * 设置控制栏显示或隐藏
+     * 设置控制栏显示或隐藏2
      *
      * @param isShowBar
      */
     private void _setControlBarVisible(boolean isShowBar) {
         if (mIsNeverPlay) {
-            mIvPlayCircle.setVisibility(isShowBar ? View.VISIBLE : View.GONE);
+            mIvPlayCircle.setVisibility(VISIBLE);
+//            mIvPlayCircle.setVisibility(isShowBar ? View.VISIBLE : View.GONE);
         } else if (mIsForbidTouch) {
             mIvPlayerLock.setVisibility(isShowBar ? View.VISIBLE : View.GONE);
         } else {
-            mLlBottomBar.setVisibility(isShowBar ? View.VISIBLE : View.GONE);
+            if (isfm == true) {
+                mLlBottomBar.setVisibility(GONE);
+
+            } else {
+                mLlBottomBar.setVisibility(isShowBar ? View.VISIBLE : View.GONE);
+            }
             if (!isShowBar) {
                 _showAspectRatioOptions(false);
             }
@@ -921,7 +962,13 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
                 mOrientationListener.enable();
             }
             mFullscreenTopBar.setVisibility(View.VISIBLE);
-            mLlBottomBar.setVisibility(View.VISIBLE);
+            if (isfm == true) {
+                mLlBottomBar.setVisibility(View.GONE);
+
+            } else {
+                mLlBottomBar.setVisibility(View.VISIBLE);
+
+            }
             if (mDialogClickListener != null) {
                 mIvPlayerPhont.setVisibility(VISIBLE);
             }
@@ -982,7 +1029,17 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
             mAttachActivity.finish();
         } else if (id == R.id.iv_play || id == R.id.iv_play_circle) {
             _togglePlayStatus();
-        } else if (id == R.id.iv_fullscreen) {
+        } else if (id==R.id.iv_play_play){
+            mplay.setVisibility(GONE);
+            mpause.setVisibility(VISIBLE);
+            start();
+
+        }else if (id==R.id.iv_play_pause){
+            mplay.setVisibility(VISIBLE);
+            mpause.setVisibility(GONE);
+            pause();
+
+        }else if (id == R.id.iv_fullscreen) {
             _toggleFullScreen();
         } else if (id == R.id.iv_player_lock) {
             _togglePlayerLock();
@@ -1027,6 +1084,8 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         } else if (id == R.id.tv_reload) {
             reload();
         }
+
+
     }
     /**==================== 屏幕翻转/切换处理 ====================*/
 
@@ -1302,7 +1361,12 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
             }
             if (!mIsForbidTouch) {
                 _refreshHideRunnable();
-                _togglePlayStatus();
+                if (isfm == true) {
+                    return false;
+                } else {
+                    _togglePlayStatus();
+
+                }
             }
             return true;
         }
@@ -1642,6 +1706,12 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
         }
     };
 
+
+
+
+
+
+
     /**
      * 视频播放状态处理
      *
@@ -1650,26 +1720,32 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
     private void _switchStatus(int status) {
         Log.i("IjkPlayerView", "status " + status);
         switch (status) {
-            case IMediaPlayer.MEDIA_INFO_BUFFERING_START:
+            case IMediaPlayer.MEDIA_INFO_BUFFERING_START://缓存开始
                 mIsBufferingStart = true;
                 _pauseDanmaku();
                 if (!mIsNeverPlay) {
                     mLoadingView.setVisibility(View.VISIBLE);
                 }
                 mHandler.removeMessages(MSG_TRY_RELOAD);
-            case MediaPlayerParams.STATE_PREPARING:
-                break;
-
-            case MediaPlayerParams.STATE_PREPARED:
-                mIsReady = true;
-                break;
-
-            case IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:
+            case MediaPlayerParams.STATE_PREPARING:// 加载中
                 mIsRenderingStart = true;
-            case IMediaPlayer.MEDIA_INFO_BUFFERING_END:
+                mIsBufferingStart = true;
+                _pauseDanmaku();
+                if (!mIsNeverPlay) {
+                    mLoadingView.setVisibility(View.VISIBLE);
+                }
+                mHandler.removeMessages(MSG_TRY_RELOAD);
+                break;
+
+            case MediaPlayerParams.STATE_PREPARED: // 加载完成
+                mIsReady = true;
                 mIsBufferingStart = false;
                 mLoadingView.setVisibility(View.GONE);
-                mPlayerThumb.setVisibility(View.GONE);
+//                if (isfm == false) {
+//                    mPlayerThumb.setVisibility(View.GONE);
+//                } else {
+//                    mPlayerThumb.setVisibility(View.VISIBLE);
+//                }
                 // 更新进度
                 mHandler.removeMessages(MSG_UPDATE_SEEK);
                 mHandler.sendEmptyMessage(MSG_UPDATE_SEEK);
@@ -1687,13 +1763,41 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
                 }
                 break;
 
-            case MediaPlayerParams.STATE_PLAYING:
+            case IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START://开始缓冲中
+                mIsRenderingStart = true;
+
+            case IMediaPlayer.MEDIA_INFO_BUFFERING_END://缓存完成
+                mIsBufferingStart = false;
+                mLoadingView.setVisibility(View.GONE);
+                if (isfm == false) {
+                    mPlayerThumb.setVisibility(View.GONE);
+                } else {
+                    mPlayerThumb.setVisibility(View.VISIBLE);
+                }
+                // 更新进度
+                mHandler.removeMessages(MSG_UPDATE_SEEK);
+                mHandler.sendEmptyMessage(MSG_UPDATE_SEEK);
+                if (mSkipPosition != INVALID_VALUE) {
+                    _showSkipTip(); // 显示跳转提示
+                }
+                if (mVideoView.isPlaying() && mIsNetConnected) {
+                    mInterruptPosition = 0;
+                    _resumeDanmaku();   // 开启弹幕
+                    if (!mIvPlay.isSelected()) {
+                        // 这里处理断网重连后不会播放情况
+                        mVideoView.start();
+                        mIvPlay.setSelected(true);
+                    }
+                }
+                break;
+
+            case MediaPlayerParams.STATE_PLAYING: // 播放中
                 mHandler.removeMessages(MSG_TRY_RELOAD);
                 if (mIsRenderingStart && !mIsBufferingStart && mVideoView.getCurrentPosition() > 0) {
                     _resumeDanmaku();   // 开启弹幕
                 }
                 break;
-            case MediaPlayerParams.STATE_ERROR:
+            case MediaPlayerParams.STATE_ERROR: // 错误
                 mInterruptPosition = Math.max(mVideoView.getInterruptPosition(), mInterruptPosition);
                 pause();
                 if (mVideoView.getDuration() == -1 && !mIsReady) {
@@ -1707,7 +1811,7 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
                 }
                 break;
 
-            case MediaPlayerParams.STATE_COMPLETED:
+            case MediaPlayerParams.STATE_COMPLETED:// 结束
                 pause();
                 if (mVideoView.getDuration() == -1 ||
                         (mVideoView.getInterruptPosition() + INTERVAL_TIME < mVideoView.getDuration())) {
@@ -1722,6 +1826,94 @@ public class IjkPlayerView extends FrameLayout implements View.OnClickListener {
                 break;
         }
     }
+
+/**
+     * 视频播放状态处理
+     *
+     * @param status
+     *//**
+
+    private void _switchStatus(int status) {
+        Log.i("IjkPlayerView", "status " + status);
+        switch (status) {
+            case IMediaPlayer.MEDIA_INFO_BUFFERING_START://缓存开始
+                mIsBufferingStart = true;
+                _pauseDanmaku();
+                if (!mIsNeverPlay) {
+                    mLoadingView.setVisibility(View.VISIBLE);
+                }
+                mHandler.removeMessages(MSG_TRY_RELOAD);
+            case MediaPlayerParams.STATE_PREPARING:// 加载中
+                break;
+
+            case MediaPlayerParams.STATE_PREPARED: // 加载完成
+                mIsReady = true;
+                break;
+
+            case IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START://开始缓冲中
+                mIsRenderingStart = true;
+
+            case IMediaPlayer.MEDIA_INFO_BUFFERING_END://缓存完成
+                mIsBufferingStart = false;
+                mLoadingView.setVisibility(View.GONE);
+                if (isfm == false) {
+                    mPlayerThumb.setVisibility(View.GONE);
+                } else {
+                    mPlayerThumb.setVisibility(View.VISIBLE);
+                }
+                // 更新进度
+                mHandler.removeMessages(MSG_UPDATE_SEEK);
+                mHandler.sendEmptyMessage(MSG_UPDATE_SEEK);
+                if (mSkipPosition != INVALID_VALUE) {
+                    _showSkipTip(); // 显示跳转提示
+                }
+                if (mVideoView.isPlaying() && mIsNetConnected) {
+                    mInterruptPosition = 0;
+                    _resumeDanmaku();   // 开启弹幕
+                    if (!mIvPlay.isSelected()) {
+                        // 这里处理断网重连后不会播放情况
+                        mVideoView.start();
+                        mIvPlay.setSelected(true);
+                    }
+                }
+                break;
+
+            case MediaPlayerParams.STATE_PLAYING: // 播放中
+                mHandler.removeMessages(MSG_TRY_RELOAD);
+                if (mIsRenderingStart && !mIsBufferingStart && mVideoView.getCurrentPosition() > 0) {
+                    _resumeDanmaku();   // 开启弹幕
+                }
+                break;
+            case MediaPlayerParams.STATE_ERROR: // 错误
+                mInterruptPosition = Math.max(mVideoView.getInterruptPosition(), mInterruptPosition);
+                pause();
+                if (mVideoView.getDuration() == -1 && !mIsReady) {
+                    mLoadingView.setVisibility(View.GONE);
+                    mPlayerThumb.setVisibility(View.GONE);
+                    mIvPlayCircle.setVisibility(GONE);
+                    mFlReload.setVisibility(VISIBLE);
+                } else {
+                    mLoadingView.setVisibility(VISIBLE);
+                    mHandler.sendEmptyMessage(MSG_TRY_RELOAD);
+                }
+                break;
+
+            case MediaPlayerParams.STATE_COMPLETED:// 结束
+                pause();
+                if (mVideoView.getDuration() == -1 ||
+                        (mVideoView.getInterruptPosition() + INTERVAL_TIME < mVideoView.getDuration())) {
+                    mInterruptPosition = Math.max(mVideoView.getInterruptPosition(), mInterruptPosition);
+                    Toast.makeText(mAttachActivity, "网络异常", Toast.LENGTH_SHORT).show();
+                } else {
+                    mIsPlayComplete = true;
+                    if (mCompletionListener != null) {
+                        mCompletionListener.onCompletion(mVideoView.getMediaPlayer());
+                    }
+                }
+                break;
+        }
+    }
+*/
 
     /**============================ Listener ============================*/
 

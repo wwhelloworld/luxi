@@ -256,7 +256,7 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         } else if (holder instanceof NewsListHolder) {//新闻列表 上方三个非列表的占位
             NewsListHolder newsListHolder = (NewsListHolder) holder;
-            GlideUtils.load(newslist.get(position - 5).getThumb(), newsListHolder.imageView);
+            GlideUtils.loadround(mContext,newslist.get(position - 5).getThumb(), newsListHolder.imageView);
             newsListHolder.tv_1.setText(newslist.get(position - 5).getTitle());
             newsListHolder.tv_2.setText("阅 " + newslist.get(position - 5).getHits());
             newsListHolder.tv_4.setText(DateUtils.timeStampDate(newslist.get(position - 5).getDateline()));

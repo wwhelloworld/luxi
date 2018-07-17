@@ -60,7 +60,7 @@ public class News_adapter extends BaseAdapter {
             holder = (CommonHolder) convertView.getTag();
         }
         if (list.size() > 0) {
-            GlideUtils.loadnormoal(mContext, list.get(position).getThumb(), holder.imageView);
+            GlideUtils.loadround(mContext, list.get(position).getThumb(), holder.imageView);
             holder.textView1.setText(list.get(position).getTitle());
             holder.textView2.setText(list.get(position).getSource());
             holder.textView3.setText(list.get(position).getWriter());

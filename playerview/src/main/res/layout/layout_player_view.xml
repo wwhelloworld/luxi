@@ -16,8 +16,7 @@
         android:id="@+id/iv_thumb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@android:color/black" />
+        android:scaleType="fitXY" />
 
     <master.flame.danmaku.ui.widget.DanmakuView
         android:id="@+id/sv_danmaku"
@@ -61,7 +60,7 @@
         android:layout_marginRight="10dp"
         android:padding="10dp"
         android:src="@mipmap/img_player_phont"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <include layout="@layout/layout_skip_tip" />
 
@@ -71,6 +70,21 @@
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_player_center_start" />
+
+    <ImageView
+        android:id="@+id/iv_play_play"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:src="@drawable/video_play" />
+
+    <ImageView
+        android:id="@+id/iv_play_pause"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:src="@drawable/video_pause"
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/fl_reload_layout"
