@@ -87,7 +87,7 @@ public class Fragment4 extends BaseFragment {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestFuWu(0);
+                requestFuWu(1);
             }
         });
 

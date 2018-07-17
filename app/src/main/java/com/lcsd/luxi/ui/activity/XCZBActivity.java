@@ -120,7 +120,7 @@ public class XCZBActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestXCZB(0);
+                requestXCZB(1);
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.lcsd.luxi.R;
 import com.lcsd.luxi.entity.Commen_Info;
 import com.lcsd.luxi.entity.FuWu_List_Info;
+import com.lcsd.luxi.permissions.PerimissionsCallback;
+import com.lcsd.luxi.permissions.PermissionEnum;
+import com.lcsd.luxi.permissions.PermissionManager;
 import com.lcsd.luxi.ui.activity.NewsDetialActivity;
 import com.lcsd.luxi.ui.activity.WebviewActivity;
 import com.lcsd.luxi.ui_third_party.activity.JokesActivity;
@@ -21,6 +24,7 @@ import com.lcsd.luxi.ui_third_party.activity.LsActivity;
 import com.lcsd.luxi.ui_third_party.activity.NewsTopActivity;
 import com.lcsd.luxi.ui_third_party.activity.WXJXActivity;
 import com.lcsd.luxi.ui_third_party.activity.WepiaoActivity;
+import com.lcsd.luxi.utils.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +91,6 @@ public class Frag03_recycle_adapter extends RecyclerView.Adapter<Frag03_recycle_
 
                     } else if (list2.get(position).getTitle().equals("轻松一刻")) {
                         mContext.startActivity(new Intent(mContext, JokesActivity.class));
-
                     }
                 }
             });

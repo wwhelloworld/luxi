@@ -138,7 +138,7 @@ public class Fragment_news extends BaseFragment {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestnews(0);
+                requestnews(1);
             }
         });
 

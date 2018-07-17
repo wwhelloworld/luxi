@@ -112,7 +112,7 @@ public class ZWActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestZW(0);
+                requestZW(1);
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

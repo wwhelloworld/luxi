@@ -116,7 +116,7 @@ public class DianBoListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestZW(0);
+                requestZW(1);
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -183,6 +183,9 @@ public class DianBoListActivity extends BaseActivity {
             public void onFailure(int statusCode, String error_msg) {
                 if (error_msg != null) {
                     try {
+                        if (i == 1 || i == 2) {
+                            refresh.refreshComplete();
+                        }
                         statusView.showNoNetwork();
                     } catch (Exception e) {
                         e.printStackTrace();

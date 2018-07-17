@@ -105,7 +105,7 @@ public class Fragment1 extends BaseFragment {
         recycler_frag01_lanmu.setNestedScrollingEnabled(false);
         recycler_frag01_lanmu.setItemViewCacheSize(10);//设置缓存holder的数量，不然重新服用的时候回卡顿，同时不能过多，不然会造成内存过大
         recycler_frag01_lanmu.setLayoutManager(new LinearLayoutManager(mContext));
-        adapter = new Frag01_recycle_adapter(mContext, bannerlist,toplist,recommendlist, lanmulist, videolist, newslist);
+        adapter = new Frag01_recycle_adapter(mContext, bannerlist, toplist, recommendlist, lanmulist, videolist, newslist);
         recycler_frag01_lanmu.setAdapter(adapter);
         //请求数据
         statusView.showLoading();
@@ -121,8 +121,8 @@ public class Fragment1 extends BaseFragment {
             @Override
             public void onClick(View v) {
                 statusView.showLoading();
-                requestFragment1(0);
-                requestNews(0);
+                requestFragment1(1);
+                requestNews(1);
             }
         });
 /**隐藏了搜索*/
@@ -147,47 +147,47 @@ public class Fragment1 extends BaseFragment {
                 if (response != null) {
                     try {
 
-                    if (i == 1) {
-                        bannerlist.clear();
-                        lanmulist.clear();
-                        videolist.clear();
-                    }
-                    Log.d("返回的数据====", response);
-                    Frag01_list info = JSON.parseObject(response, Frag01_list.class);
-                    //轮播图
-                    if (info.getHeadSlideNews() != null && info.getHeadSlideNews().size() > 0) {
-                        bannerlist.addAll(info.getHeadSlideNews());
-                    }
-                    //热点滚动消息
-                    if (info.getTopNewslist().size() > 0) {
-                        toplist.addAll(info.getTopNewslist());
-                    }
+                        if (i == 1) {
+                            bannerlist.clear();
+                            lanmulist.clear();
+                            videolist.clear();
+                        }
+                        Log.d("返回的数据====", response);
+                        Frag01_list info = JSON.parseObject(response, Frag01_list.class);
+                        //轮播图
+                        if (info.getHeadSlideNews() != null && info.getHeadSlideNews().size() > 0) {
+                            bannerlist.addAll(info.getHeadSlideNews());
+                        }
+                        //热点滚动消息
+                        if (info.getTopNewslist().size() > 0) {
+                            toplist.addAll(info.getTopNewslist());
+                        }
 
-                    //视频推荐两条
-                    if (info.getVideoList().size() > 0) {
-                        recommendlist.addAll(info.getVideoList());
-                    }
-                    //栏目数据
-                    if (info.getNewxmlbList() != null && info.getNewxmlbList().size() > 0) {
-                        lanmulist.addAll(info.getNewxmlbList());
-                    }
-                    //视频点播栏目
-                    if (info.getColumnClick() != null && info.getColumnClick().size() > 0) {
-                        videolist.addAll(info.getColumnClick());
-                    }
+                        //视频推荐两条
+                        if (info.getVideoList().size() > 0) {
+                            recommendlist.addAll(info.getVideoList());
+                        }
+                        //栏目数据
+                        if (info.getNewxmlbList() != null && info.getNewxmlbList().size() > 0) {
+                            lanmulist.addAll(info.getNewxmlbList());
+                        }
+                        //视频点播栏目
+                        if (info.getColumnClick() != null && info.getColumnClick().size() > 0) {
+                            videolist.addAll(info.getColumnClick());
+                        }
 
 
-                    adapter.notifyDataSetChanged();
-                    if (i == 1) {
-                        refresh.refreshComplete();
-                    }
-                    if (bannerlist.size() > 0 || lanmulist.size() > 0 || videolist.size() > 0) {
-                        statusView.showContent();
-                    } else {
-                        statusView.showEmpty();
-                    }
+                        adapter.notifyDataSetChanged();
+                        if (i == 1) {
+                            refresh.refreshComplete();
+                        }
+                        if (bannerlist.size() > 0 || lanmulist.size() > 0 || videolist.size() > 0) {
+                            statusView.showContent();
+                        } else {
+                            statusView.showEmpty();
+                        }
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         statusView.showError();
                     }
@@ -199,9 +199,12 @@ public class Fragment1 extends BaseFragment {
             public void onFailure(int statusCode, String error_msg) {
                 if (error_msg != null) {
                     try {
+                        if (i == 1 || i == 2) {
+                            refresh.refreshComplete();
+                        }
                         statusView.showNoNetwork();
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

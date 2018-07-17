@@ -8,12 +8,14 @@ import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.GeolocationPermissions;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.lcsd.luxi.R;
+import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -93,8 +95,15 @@ public class WebviewActivity extends BaseActivity {
         /**
          * 获取网页加载进度
          */
-
         webView.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onGeolocationPermissionsShowPrompt(String s, GeolocationPermissionsCallback geolocationPermissionsCallback) {
+//                //重写此方法，配置权限
+//                geolocationPermissionsCallback.invoke(s,true,false);
+//                super.onGeolocationPermissionsShowPrompt(s, geolocationPermissionsCallback);
+//
+//            }
+
             @Override
             public void onProgressChanged(WebView webView, int i) {
                 super.onProgressChanged(webView, i);
@@ -195,6 +204,7 @@ public class WebviewActivity extends BaseActivity {
             webView.clearHistory();
             webView.clearFormData();
             getCacheDir().delete();
+            webView.removeAllViews();
             webView.destroy();
         }
     }
