@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mContext = this;
         mFragmentManager = getFragmentManager();
         showFragment(1);
-        ImmersionBar.with(this).statusBarDarkFont(true, 0.3f).init();
+        ImmersionBar.with(this).statusBarColorInt(getResources().getColor(R.color.color_red_h)).init();
 
         //权限
 
@@ -195,25 +195,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.ll_01:
                 mIv1.setBackgroundResource(R.drawable.img_bottom_firstpages);
-                ImmersionBar.with(this).statusBarDarkFont(true, 0.3f).init();
+                ImmersionBar.with(this).statusBarDarkFont(false).init();
+                ImmersionBar.with(this).statusBarColorInt(getResources().getColor(R.color.color_red_h)).init();
                 showFragment(1);
                 mTv1.setTextColor(getResources().getColor(R.color.orange));
                 break;
             case R.id.ll_02:
                 mIv2.setBackgroundResource(R.drawable.img_bottom_xinwens);
                 ImmersionBar.with(this).statusBarDarkFont(true, 0.3f).init();
+                ImmersionBar.with(this).statusBarColorInt(getResources().getColor(R.color.transparent)).init();
                 showFragment(2);
                 mTv2.setTextColor(getResources().getColor(R.color.orange));
                 break;
             case R.id.ll_03:
                 mIv3.setBackgroundResource(R.drawable.img_bottom_zhibos);
                 ImmersionBar.with(this).statusBarDarkFont(false).init();
+                ImmersionBar.with(this).statusBarColorInt(getResources().getColor(R.color.transparent)).init();
+
                 showFragment(3);
                 mTv3.setTextColor(getResources().getColor(R.color.orange));
                 break;
             case R.id.ll_04:
                 mIv4.setBackgroundResource(R.drawable.img_bottom_fuwus);
                 ImmersionBar.with(this).statusBarDarkFont(true, 0.3f).init();
+                ImmersionBar.with(this).statusBarColorInt(getResources().getColor(R.color.transparent)).init();
+
                 showFragment(4);
                 mTv4.setTextColor(getResources().getColor(R.color.orange));
                 break;

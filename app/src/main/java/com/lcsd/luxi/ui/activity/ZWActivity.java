@@ -73,8 +73,17 @@ public class ZWActivity extends BaseActivity {
         if (title != null) {
             tv_title.setText(title);
         }
-        statusView.showLoading();
-        requestZW(0);
+        if (url != null && !url.equals("")) {
+            statusView.showLoading();
+            requestZW(0);
+        } else {
+            try {
+                statusView.showEmpty();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         //填充数据
         list = new ArrayList<>();
         adapter = new ZW_adapter(mContext, list);

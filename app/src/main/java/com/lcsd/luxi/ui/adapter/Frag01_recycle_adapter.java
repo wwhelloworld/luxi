@@ -8,11 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
@@ -27,6 +26,7 @@ import com.lcsd.luxi.ui.activity.NewsDetialActivity;
 import com.lcsd.luxi.ui.activity.VideoPlayerActivity;
 import com.lcsd.luxi.ui.activity.WebviewActivity;
 import com.lcsd.luxi.ui.activity.ZWActivity;
+import com.lcsd.luxi.ui.fragment.Fragment3;
 import com.lcsd.luxi.utils.DateUtils;
 import com.lcsd.luxi.utils.GlideUtils;
 import com.lcsd.luxi.view.CustomVRecyclerView;
@@ -36,7 +36,6 @@ import java.util.List;
 
 public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private LinearLayout linearLayout;
     //轮播图
     public static final int ITEM_01 = 0;
     //顶部滚动消息
@@ -57,7 +56,6 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
     private List<Frag01_list.TNewxmlbList> lanmulist;
     private List<Frag01_list.TColumnClick> videolist;
     private List<Frag01_news.TContent.TRslist> newslist;
-    //
 
 
     public Frag01_recycle_adapter(Context mContext, List<Frag01_list.THeadSlideNews> bannerlist,
@@ -173,7 +171,19 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         } else if (holder instanceof RecommendHolder) {
             RecommendHolder recommendHolder = (RecommendHolder) holder;
-            Recommend_adapter adapter = new Recommend_adapter(recommendlist);
+            if (recommendlist.size() > 0) {
+                recommendHolder.listView.setText(recommendlist.get(0).getTitle());
+                recommendHolder.listView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.startActivity(new Intent(mContext, VideoPlayerActivity.class)
+                                .putExtra("url", recommendlist.get(0).getVideo())
+                                .putExtra("title", recommendlist.get(0).getTitle())
+                                .putExtra("img", recommendlist.get(0).getThumb()));
+                    }
+                });
+            }
+          /*  Recommend_adapter adapter = new Recommend_adapter(recommendlist);
             recommendHolder.listView.setAdapter(adapter);
             recommendHolder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -184,7 +194,7 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
                             .putExtra("title", recommendlist.get(position).getTitle())
                             .putExtra("img", recommendlist.get(position).getThumb()));
                 }
-            });
+            });*/
 
         } else if (holder instanceof LanmuHolder) {//频道
             final LanmuHolder lanmuHolder = (LanmuHolder) holder;
@@ -193,44 +203,44 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
             lanmuHolder.recyclerView.setLayoutManager(gridLayoutManager);
             Lanmu_adapter lanmu_adapter = new Lanmu_adapter(lanmulist);
             ((LanmuHolder) holder).recyclerView.setAdapter(lanmu_adapter);
+
             lanmu_adapter.setOnItemClickListener(new Lanmu_adapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    if (lanmulist.get(position).getMark() != null && !lanmulist.get(position).getMark().equals("")) {
-                        if (lanmulist.get(position).getMark().equals("czlx")) {//分类类型
-                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                    .putExtra("url", lanmulist.get(position).getMarklinker())
-                                    .putExtra("mark", lanmulist.get(position).getMark())
-                                    .putExtra("title", lanmulist.get(position).getTitle()));
-                        } else if (lanmulist.get(position).getMark().equals("zwxx")) {//列表类型
-                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                    .putExtra("url", lanmulist.get(position).getMarklinker())
-                                    .putExtra("mark", lanmulist.get(position).getMark())
-                                    .putExtra("title", lanmulist.get(position).getTitle()));
-
-                        } else if (lanmulist.get(position).getMark().equals("beutContry")) {//列表类型
-                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                    .putExtra("url", lanmulist.get(position).getMarklinker())
-                                    .putExtra("mark", lanmulist.get(position).getMark())
-                                    .putExtra("title", lanmulist.get(position).getTitle()));
-
-
-                        } else if (lanmulist.get(position).getMark().equals("ztzl")) {//分类类型
-                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
-                                    .putExtra("url", lanmulist.get(position).getMarklinker())
-                                    .putExtra("mark", lanmulist.get(position).getMark())
-                                    .putExtra("title", lanmulist.get(position).getTitle()));
-
-                        } else if (lanmulist.get(position).getMark().equals("videolist")) {//分类类型
+                    if (lanmulist.get(position).getDecide().equals("1")) {
+                        if (lanmulist.get(position).getMark().equals("videolist")) {//分类类型
 
                             MainActivity.mLl3.performClick();//模拟人工触摸点击方式
+                            //创建Intent
+                            Intent intent = new Intent();
+                            intent.setAction("fragtofrag");
+                            intent.putExtra("msg", "videolist");
+                            //发送广播
+                            mContext.sendBroadcast(intent);
+
+                        } else if (lanmulist.get(position).getMark().equals("lxradio")) {
+                            MainActivity.mLl3.performClick();//模拟人工触摸点击方式
+                            //创建Intent
+                            Intent intent = new Intent();
+                            intent.setAction("fragtofrag");
+                            intent.putExtra("msg", "lxradio");
+                            //发送广播
+                            mContext.sendBroadcast(intent);
+
+                        } else {
+                            mContext.startActivity(new Intent(mContext, ZWActivity.class)
+                                    .putExtra("url", lanmulist.get(position).getMarklinker())
+                                    .putExtra("mark", lanmulist.get(position).getMark())
+                                    .putExtra("title", lanmulist.get(position).getTitle()));
                         }
 
-                    } else {
+                    } else if (lanmulist.get(position).getDecide().equals("3")) {
                         mContext.startActivity(new Intent(mContext, WebviewActivity.class)
                                 .putExtra("url", lanmulist.get(position).getMarklinker())
                                 .putExtra("title", lanmulist.get(position).getTitle()));
 
+                    } else {
+                        Toast.makeText(mContext, "后台维护中，请稍后重试！", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -256,7 +266,7 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         } else if (holder instanceof NewsListHolder) {//新闻列表 上方三个非列表的占位
             NewsListHolder newsListHolder = (NewsListHolder) holder;
-            GlideUtils.loadround(mContext,newslist.get(position - 5).getThumb(), newsListHolder.imageView);
+            GlideUtils.loadround(mContext, newslist.get(position - 5).getThumb(), newsListHolder.imageView);
             newsListHolder.tv_1.setText(newslist.get(position - 5).getTitle());
             newsListHolder.tv_2.setText("阅 " + newslist.get(position - 5).getHits());
             newsListHolder.tv_4.setText(DateUtils.timeStampDate(newslist.get(position - 5).getDateline()));
@@ -336,11 +346,11 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
      * 推荐的viewholder
      */
     public static class RecommendHolder extends RecyclerView.ViewHolder {
-        ListView listView;
+        TextView listView;
 
         public RecommendHolder(View itemView) {
             super(itemView);
-            listView = itemView.findViewById(R.id.listview_f1_recommend);
+            listView = itemView.findViewById(R.id.tv_f1_recoomend);
 
 
         }
@@ -388,5 +398,6 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
             tv_4 = itemView.findViewById(R.id.tv_item_news04);
         }
     }
+
 
 }

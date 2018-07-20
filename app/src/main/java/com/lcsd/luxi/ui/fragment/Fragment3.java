@@ -1,9 +1,17 @@
 package com.lcsd.luxi.ui.fragment;
 
 
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,7 +21,6 @@ import com.alibaba.fastjson.JSON;
 import com.dl7.player.media.IjkPlayerView;
 import com.lcsd.luxi.R;
 import com.lcsd.luxi.entity.DianBo_Info;
-import com.lcsd.luxi.entity.ZB_Info;
 import com.lcsd.luxi.entity.ZhiBo_Info;
 import com.lcsd.luxi.http.AppConfig;
 import com.lcsd.luxi.http.MyApplication;
@@ -46,6 +53,10 @@ public class Fragment3 extends BaseFragment {
     private List<ZhiBo_Info.TContent> zblist;
     private List<DianBo_Info.TContent> dblist;
     public static IjkPlayerView zb_player;
+    private IntentFilter intentFilter;
+    private MyBroadCastRecevier broadCastRecevier;
+
+
     @BindView(R.id.gv_zhibo)
     GridView gridView_zb;
     @BindView(R.id.gv_dianbo)
@@ -55,14 +66,18 @@ public class Fragment3 extends BaseFragment {
     @BindView(R.id.refresh_frag03)
     PtrClassicFrameLayout refresh;
 
+
     @Override
     protected int setLayoutId() {
         return R.layout.fragment03;
     }
 
+
     @Override
     protected void initData() {
         mContext = getActivity();
+
+
         statusView.showLoading();
         zb_player = getActivity().findViewById(R.id.ijk_zb_player);
         zb_player.hideSet();
@@ -93,6 +108,7 @@ public class Fragment3 extends BaseFragment {
         });
 
     }
+
 
     @Override
     protected void setListener() {
@@ -181,6 +197,7 @@ public class Fragment3 extends BaseFragment {
                             zblist.addAll(info.getContent());
                         }
                         zb_adapter.notifyDataSetChanged();
+
                         if (i == 0) {
                             //初始加载直播流
                             zb_player.setVideoPath(info.getContent().get(0).getZblinker());
@@ -243,6 +260,8 @@ public class Fragment3 extends BaseFragment {
                             dblist.addAll(info.getContent());
                         }
                         db_adapter.notifyDataSetChanged();
+
+
                         if (i == 1) {
                             refresh.refreshComplete();
 
@@ -286,6 +305,47 @@ public class Fragment3 extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        //创建动态广播接收
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("fragtofrag");
+        broadCastRecevier = new MyBroadCastRecevier();
+        mContext.registerReceiver(broadCastRecevier, intentFilter);
+    }
+
+
+    //重写其中的方法
+    class MyBroadCastRecevier extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getStringExtra("msg").equals("videolist")) {
+                if (zblist.size() > 0 && zblist.get(0) != null) {
+//                    Toast.makeText(mContext, "接受到了这个广播！", Toast.LENGTH_SHORT).show();
+                    zb_player.switchVideoPath(false, zblist.get(0).getZblinker());
+                    zb_player.setTitle(zblist.get(0).getTitle());
+                    GlideUtils.loadspecial(mContext, zblist.get(0).getThumb(), zb_player.mPlayerThumb);
+                    zb_player.isFM(false);
+                    zb_player.start();
+                }
+
+            } else if (intent.getStringExtra("msg").equals("lxradio")) {
+                if (zblist.size() > 1 && zblist.get(1) != null) {
+//                    Toast.makeText(mContext, "接受到了这个电视！", Toast.LENGTH_SHORT).show();
+                    zb_player.switchVideoPath(true, zblist.get(1).getZblinker());
+                    zb_player.setTitle(zblist.get(1).getTitle());
+                    GlideUtils.loadspecial(mContext, zblist.get(1).getThumb(), zb_player.mPlayerThumb);
+                    zb_player.isFM(true);
+                    zb_player.start();
+                }
+
+
+            }
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         if (zb_player != null) {
@@ -300,5 +360,9 @@ public class Fragment3 extends BaseFragment {
         if (zb_player != null) {
             zb_player.onDestroy();
         }
+        //注销广播
+        mContext.unregisterReceiver(broadCastRecevier);
     }
+
+
 }

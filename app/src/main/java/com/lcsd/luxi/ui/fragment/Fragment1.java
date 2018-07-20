@@ -151,6 +151,8 @@ public class Fragment1 extends BaseFragment {
                             bannerlist.clear();
                             lanmulist.clear();
                             videolist.clear();
+                            toplist.clear();
+                            recommendlist.clear();
                         }
                         Log.d("返回的数据====", response);
                         Frag01_list info = JSON.parseObject(response, Frag01_list.class);
@@ -159,12 +161,12 @@ public class Fragment1 extends BaseFragment {
                             bannerlist.addAll(info.getHeadSlideNews());
                         }
                         //热点滚动消息
-                        if (info.getTopNewslist().size() > 0) {
+                        if (info.getTopNewslist()!=null&&info.getTopNewslist().size() > 0) {
                             toplist.addAll(info.getTopNewslist());
                         }
 
                         //视频推荐两条
-                        if (info.getVideoList().size() > 0) {
+                        if (info.getVideoList()!=null&&info.getVideoList().size() > 0) {
                             recommendlist.addAll(info.getVideoList());
                         }
                         //栏目数据

@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="@color/color_white"
-    android:paddingTop="20dp"
-    android:gravity="center"
+    android:background="@color/color_red_h"
+    android:paddingTop="30dp"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_width="130dp"
+        android:layout_height="32dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/img_main_head"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/img_main_head"
+         />
 
 
     <EditText
