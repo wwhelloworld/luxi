@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,6 +32,7 @@ import com.lcsd.luxi.ui.activity.ZWActivity;
 import com.lcsd.luxi.ui.fragment.Fragment3;
 import com.lcsd.luxi.utils.DateUtils;
 import com.lcsd.luxi.utils.GlideUtils;
+import com.lcsd.luxi.utils.StringUtils;
 import com.lcsd.luxi.view.CustomVRecyclerView;
 
 import java.util.ArrayList;
@@ -172,7 +176,12 @@ public class Frag01_recycle_adapter extends RecyclerView.Adapter<RecyclerView.Vi
         } else if (holder instanceof RecommendHolder) {
             RecommendHolder recommendHolder = (RecommendHolder) holder;
             if (recommendlist.size() > 0) {
-                recommendHolder.listView.setText(recommendlist.get(0).getTitle());
+                String str = recommendlist.get(0).getTitle();
+                String strc = StringUtils.splitNotNumber(str) + "\n" + StringUtils.getNumbers(str);
+                Spannable sp = new SpannableString(strc);
+                sp.setSpan(new AbsoluteSizeSpan(10, true), 0, StringUtils.splitNotNumber(str).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sp.setSpan(new AbsoluteSizeSpan(8, true), strc.length() - StringUtils.getNumbers(str).length(), strc.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                recommendHolder.listView.setText(sp);
                 recommendHolder.listView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

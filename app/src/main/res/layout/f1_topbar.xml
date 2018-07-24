@@ -9,7 +9,7 @@
 
     <ImageView
         android:layout_width="130dp"
-        android:layout_height="32dp"
+        android:layout_height="35dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:background="@drawable/img_main_head"
